@@ -26,25 +26,26 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/campo_processo"
-        android:layout_alignLeft="@+id/campo_processo"
-        android:layout_alignStart="@+id/campo_processo"
-        android:layout_marginBottom="71dp"
         android:layout_weight="0.10"
         android:text="Número Processo"
         android:textSize="40px"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="159dp" />
+        tools:layout_editor_absoluteY="159dp"
+        android:layout_below="@+id/textView4"
+        android:layout_alignLeft="@+id/edtProcesso"
+        android:layout_alignStart="@+id/edtProcesso"
+        android:layout_marginTop="72dp" />
 
     <EditText
-        android:id="@+id/campo_processo"
+        android:id="@+id/edtProcesso"
         android:layout_width="333dp"
         android:layout_height="68dp"
         android:layout_below="@+id/textView4"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="106dp"
         android:ems="10"
-        android:inputType="textPersonName"
+
+        android:inputType="textPersonName|number"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="216dp" />
 
@@ -52,39 +53,31 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/campo_processo"
-        android:layout_alignStart="@+id/campo_processo"
-        android:layout_below="@+id/campo_processo"
         android:text="Ex: 0024.09.000095-2"
         tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="284dp" />
+        tools:layout_editor_absoluteY="284dp"
+        android:layout_below="@+id/edtProcesso"
+        android:layout_alignLeft="@+id/edtProcesso"
+        android:layout_alignStart="@+id/edtProcesso" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
 
-        <ImageButton
-            android:id="@+id/botao_perquisa"
-            android:layout_width="293dp"
-            android:layout_height="63dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="100dp"
-            android:background="@drawable/custon_botao1"
-            android:onClick="onClickBotaoCustomizado"
-            android:pointerIcon="copy"
-            android:text="Buscar"
-            android:textColor="#FFFFFF"
-            android:textSize="45px"
-            android:textStyle="bold"
-            app:srcCompat="@android:drawable/ic_search_category_default"
-            tools:layout_editor_absoluteX="36dp"
-            tools:layout_editor_absoluteY="345dp" />
-
-    </RelativeLayout>
+    <ImageButton
+        android:id="@+id/botao_perquisa"
+        android:layout_width="293dp"
+        android:layout_height="63dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="100dp"
+        android:background="@drawable/custon_botao1"
+        android:onClick="onClickBotaoCustomizado"
+        android:pointerIcon="copy"
+        android:text="Buscar"
+        android:textColor="#FFFFFF"
+        android:textSize="45px"
+        android:textStyle="bold"
+        app:srcCompat="@android:drawable/ic_search_category_default"
+        tools:layout_editor_absoluteX="36dp"
+        tools:layout_editor_absoluteY="345dp" />
 
 
 </RelativeLayout>
