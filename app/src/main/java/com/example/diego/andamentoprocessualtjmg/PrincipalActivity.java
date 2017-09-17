@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import java.util.StringTokenizer;
 
@@ -29,7 +30,7 @@ public class PrincipalActivity extends AppCompatActivity {
             proMask = Mask.insert("####.##.######-#", edtProcesso);
             edtProcesso.addTextChangedListener(proMask);
 
-            btnPesquisa.setOnClickListener(new View.OnClickListener(){
+            btnPesquisa.setOnClickListener(new Button.OnClickListener(){
 
                 @Override
                 public void onClick(View view) {
@@ -37,7 +38,11 @@ public class PrincipalActivity extends AppCompatActivity {
                     StringTokenizer st = new StringTokenizer(processo,".-");
                     if(st.hasMoreTokens()){
                         try {
-                            ConexaoTJMG.URLReader(st.nextToken(),st.nextToken().concat(st.nextToken()),st.nextToken() );
+
+                            Toast.makeText(PrincipalActivity.this, "Buscanco Processo "+ processo, Toast.LENGTH_SHORT).show();
+                            ConexaoTJMG.URLReader(st.nextToken(),st.nextToken().concat(st.nextToken()),st.nextToken());
+
+
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
