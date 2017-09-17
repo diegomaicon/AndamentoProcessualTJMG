@@ -11,6 +11,8 @@ import org.jsoup.select.Elements;
 
 import java.net.*;
 import java.io.*;
+import java.util.ArrayList;
+
 /**
  * Created by diego on 07/09/17.
  */
@@ -26,13 +28,56 @@ public class ConexaoTJMG {
 
                     Thread downloadThread = new Thread() {
                         public void run() {
-                            Document html;
                             try {
-                                 html = Jsoup.connect(link).get();
+                               //Baixa HTML com caracter especial
+                                Document html =  Jsoup.parse(new URL(link).openStream(), "ISO-8859-1", link);
+
                                 Elements form = html.select("table.tabela_formulario");
                                 Elements corpo = html.select("table.corpo");
-                                System.out.print(form.toString());
 
+                                Processo processo = new Processo();
+                                Elements b = form.select("b");
+                                short aux=1;
+                                for (Element eleB:b) {
+                                    if (aux == 1) processo.setNumero(eleB.text());
+                                    if (aux == 2) processo.setVara(eleB.text());
+                                    if (aux == 3) processo.setStatus(eleB.text());
+                                    aux++;
+                                }
+                                aux=1;
+
+                                if (!processo.getStatus().equals("BAIXADO")) {
+
+                                    Elements eleClasse = corpo.get(1).select("tr");
+                                    for (Element eleC:eleClasse) {
+                                        if (aux == 1) processo.setClasse(eleC.text());
+                                        if (aux == 2) processo.setAssunto(eleC.text());
+                                        if (aux == 3) processo.setCs(eleC.text());
+                                        aux++;
+                                    }
+                                    aux=1;
+
+
+                                    Elements autores = corpo.select("table#partes");
+                                    Elements p = autores.select("tr");
+                                    ArrayList<String> auxList = new ArrayList<String>();
+                                    for (Element eleP : p) {
+                                           auxList.add(eleP.text());
+                                    }
+                                    processo.setPartes(auxList);
+                                    auxList.clear();
+
+
+                                    Elements mov = corpo.get(4).select("tr");
+
+                                    for (Element eleMov : mov) {
+                                        auxList.add(eleMov.text());
+                                    }
+                                    processo.setPartes(auxList);
+                                    auxList.clear();
+
+
+                                }
                                 //Toast.makeText(R.layout.activity_principal,"Retorno: ", Toast.LENGTH_SHORT).show();
                             } catch (IOException e) {
                                 e.printStackTrace();
