@@ -73,12 +73,12 @@ public class ConexaoTJMG {
                                     for (Element eleMov : mov) {
                                         auxList.add(eleMov.text());
                                     }
-                                    processo.setPartes(auxList);
+                                    processo.setMovimento(auxList);
                                     auxList.clear();
 
-
+                                    // passar objeto processo para outra Tela.
                                 }
-                                //Toast.makeText(R.layout.activity_principal,"Retorno: ", Toast.LENGTH_SHORT).show();
+
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
