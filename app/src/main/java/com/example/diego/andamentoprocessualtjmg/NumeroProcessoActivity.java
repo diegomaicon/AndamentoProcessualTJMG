@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import java.util.StringTokenizer;
 
-public class PrincipalActivity extends AppCompatActivity {
+public class NumeroProcessoActivity extends AppCompatActivity {
 
         private ImageButton btnPesquisa;
         private EditText edtProcesso;
@@ -39,7 +39,7 @@ public class PrincipalActivity extends AppCompatActivity {
                     if(st.hasMoreTokens()){
                         try {
 
-                            Toast.makeText(PrincipalActivity.this, "Buscanco Processo "+ processo, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(NumeroProcessoActivity.this, "Buscanco Processo "+ processo, Toast.LENGTH_SHORT).show();
                             ConexaoTJMG.URLReader(st.nextToken(),st.nextToken().concat(st.nextToken()),st.nextToken());
 
 
