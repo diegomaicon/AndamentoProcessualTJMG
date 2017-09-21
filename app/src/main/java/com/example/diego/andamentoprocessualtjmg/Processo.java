@@ -1,12 +1,14 @@
 package com.example.diego.andamentoprocessualtjmg;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by diego on 07/09/17.
  */
 
-public class Processo {
+public class Processo implements Serializable {
+
     private String numero;
     private String status;
     private String vara;
