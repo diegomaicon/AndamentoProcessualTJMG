@@ -2,6 +2,7 @@ package com.example.diego.andamentoprocessualtjmg;
 
 
 
+import android.content.Intent;
 import android.widget.Toast;
 
 import org.jsoup.Jsoup;
@@ -76,6 +77,9 @@ public class ConexaoTJMG {
                                     processo.setMovimento(auxList);
                                     auxList.clear();
 
+                                    mostraResultado(processo);
+
+
                                     // passar objeto processo para outra Tela.
                                 }
 
@@ -86,12 +90,14 @@ public class ConexaoTJMG {
                     };
 
                     downloadThread.start();
-
-       // Elements status = html.select("div.time-status span.status");
-       // Elements times1 = html.select("div.team1");
-       // Elements times2 = html.select("div.team2");
     }
 
+
+    private static void mostraResultado(Processo p) {
+
+        Intent it = new Intent(this,);
+
+    }
 
 
 }
