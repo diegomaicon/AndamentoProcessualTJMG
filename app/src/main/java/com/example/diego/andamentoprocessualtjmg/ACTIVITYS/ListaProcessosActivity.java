@@ -1,9 +1,11 @@
-package com.example.diego.andamentoprocessualtjmg;
+package com.example.diego.andamentoprocessualtjmg.ACTIVITYS;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.diego.andamentoprocessualtjmg.MODELO.Processo;
+import com.example.diego.andamentoprocessualtjmg.R;
 
 public class ListaProcessosActivity extends AppCompatActivity {
 

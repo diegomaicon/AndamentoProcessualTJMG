@@ -1,4 +1,4 @@
-package com.example.diego.andamentoprocessualtjmg;
+package com.example.diego.andamentoprocessualtjmg.MODELO;
 
 import java.io.Serializable;
 import java.util.ArrayList;

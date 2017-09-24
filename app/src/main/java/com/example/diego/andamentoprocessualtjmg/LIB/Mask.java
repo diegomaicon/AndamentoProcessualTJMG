@@ -1,4 +1,4 @@
-package com.example.diego.andamentoprocessualtjmg;
+package com.example.diego.andamentoprocessualtjmg.LIB;
 
 import android.text.Editable;
 import android.text.TextWatcher;

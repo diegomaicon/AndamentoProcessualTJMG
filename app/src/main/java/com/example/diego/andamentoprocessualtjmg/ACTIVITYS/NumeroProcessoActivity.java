@@ -1,4 +1,4 @@
-package com.example.diego.andamentoprocessualtjmg;
+package com.example.diego.andamentoprocessualtjmg.ACTIVITYS;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -10,6 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import com.example.diego.andamentoprocessualtjmg.LIB.Mask;
+import com.example.diego.andamentoprocessualtjmg.MODELO.Processo;
+import com.example.diego.andamentoprocessualtjmg.R;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -107,7 +111,7 @@ public class NumeroProcessoActivity extends AppCompatActivity {
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_principal);
+            setContentView(R.layout.activity_numero_processo);
             this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
 

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_numero"
+            android:icon="@android:drawable/ic_menu_agenda"
+            android:title="Por Número" />
+        <item
+            android:id="@+id/nav_partes"
+            android:icon="@android:drawable/ic_menu_crop"
+            android:title="Por Partes" />
+        <item
+            android:id="@+id/nav_advogado"
+            android:icon="@android:drawable/ic_input_get"
+            android:title="Por Advogado" />
+
+    </group>
+
+    <item android:title="Cadastro">
+        <menu>
+            <item
+                android:id="@+id/nav_cliente"
+                android:icon="@android:drawable/ic_input_add"
+                android:title="Cliente" />
+
+            <item
+                android:id="@+id/nav_consulta_cliente"
+                android:icon="@android:drawable/ic_menu_myplaces"
+                android:title="Consulta Cliente" />
+            <item
+                android:id="@+id/nav_processo"
+                android:icon="@android:drawable/ic_menu_info_details"
+                android:title="Processo" />
+        </menu>
+    </item>
+
+</menu>

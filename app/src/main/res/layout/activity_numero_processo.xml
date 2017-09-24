@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/degrade_radial"
-    tools:context="com.example.diego.andamentoprocessualtjmg.NumeroProcessoActivity">
+    tools:context="com.example.diego.andamentoprocessualtjmg.ACTIVITYS.NumeroProcessoActivity">
 
     <TextView
         android:id="@+id/textView4"

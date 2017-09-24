@@ -1,9 +1,11 @@
-package com.example.diego.andamentoprocessualtjmg;
+package com.example.diego.andamentoprocessualtjmg.ACTIVITYS;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+
+import com.example.diego.andamentoprocessualtjmg.R;
 
 /**
  * Created by diego on 17/09/17.
@@ -27,7 +29,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
     private void mostrarPequisaNuProcesso() {
         Intent intent = new Intent(SplashScreenActivity.this,
-                NumeroProcessoActivity.class);
+                IndexActivity.class);
         startActivity(intent);
         finish();
     }
