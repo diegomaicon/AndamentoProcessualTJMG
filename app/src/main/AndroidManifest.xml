@@ -20,21 +20,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ACTIVITYS.NumeroProcessoActivity"
             android:theme="@style/AppTheme" />
+
         <activity
             android:name=".ACTIVITYS.ListaProcessosActivity"
             android:theme="@style/AppTheme" />
+
         <activity
             android:name=".ACTIVITYS.IndexActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".ACTIVITYS.ClienteActivity"
             android:theme="@style/AppTheme" />
+
         <activity
             android:name=".ACTIVITYS.ConsultaClienteActivity"
             android:theme="@style/AppTheme" />
+
     </application>
 
 </manifest>

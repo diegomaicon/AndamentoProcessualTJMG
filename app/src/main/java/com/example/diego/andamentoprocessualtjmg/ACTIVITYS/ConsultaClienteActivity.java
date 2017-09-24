@@ -28,7 +28,7 @@ public class ConsultaClienteActivity extends AppCompatActivity {
 
         SimpleCursorAdapter adaptador = new SimpleCursorAdapter(getBaseContext(),
                 R.layout.activity_consulta_cliente, cursor, nomeCampos, idViews, 0);
-        lista = (ListView) findViewById(R.id.listView);
+        lista = (ListView) findViewById(R.id.listview);
         lista.setAdapter(adaptador);
     }
 

@@ -28,6 +28,7 @@
                 android:id="@+id/nav_consulta_cliente"
                 android:icon="@android:drawable/ic_menu_myplaces"
                 android:title="Consulta Cliente" />
+
             <item
                 android:id="@+id/nav_processo"
                 android:icon="@android:drawable/ic_menu_info_details"
