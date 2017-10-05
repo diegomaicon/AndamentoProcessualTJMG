@@ -4,14 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:label="Dados Resumidos"
     android:background="@drawable/degrade_radial"
     tools:context="com.example.diego.andamentoprocessualtjmg.ACTIVITYS.ListaProcessosActivity">
 
 
     <TextView
-        android:id="@+id/tvOba"
+        android:id="@+id/tvVara"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="27dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="76dp"
         android:text="TextView"
         tools:layout_editor_absoluteX="106dp"
         tools:layout_editor_absoluteY="109dp" />

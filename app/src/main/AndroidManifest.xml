@@ -16,10 +16,13 @@
             android:theme="@style/AppCompat.TelaCheia">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ACTIVITYS.IndexActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".ACTIVITYS.NumeroProcessoActivity"
@@ -28,10 +31,6 @@
         <activity
             android:name=".ACTIVITYS.ListaProcessosActivity"
             android:theme="@style/AppTheme" />
-
-        <activity
-            android:name=".ACTIVITYS.IndexActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".ACTIVITYS.ClienteActivity"
