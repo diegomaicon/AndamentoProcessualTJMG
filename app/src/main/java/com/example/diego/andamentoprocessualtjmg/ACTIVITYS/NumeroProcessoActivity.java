@@ -55,10 +55,11 @@ public class NumeroProcessoActivity extends AppCompatActivity {
 
         Thread downloadThread = new Thread() {
             public void run() {
-                Document html;
+                Document html = null;
                 try {
                     //Baixa HTML com caracter especial
                     html = Jsoup.parse(new URL(link).openStream(), "ISO-8859-9", link);
+
 
                     Elements form = html.select("table.tabela_formulario");
                     Elements corpo = html.select("table.corpo");
@@ -109,7 +110,7 @@ public class NumeroProcessoActivity extends AppCompatActivity {
                     }
 
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    chamaWebView(html.html());
                 }
 
             }
@@ -125,6 +126,11 @@ public class NumeroProcessoActivity extends AppCompatActivity {
         startActivity(it);
     }
 
+    private void chamaWebView(String html) {
+        Intent it = new Intent(this, WebViewActivity.class);
+        it.putExtra("html", html);
+        startActivity(it);
+    }
 
     @Override
         protected void onCreate(Bundle savedInstanceState) {
