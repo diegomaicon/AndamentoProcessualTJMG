@@ -89,21 +89,21 @@ public class NumeroProcessoActivity extends AppCompatActivity {
 
                         Elements autores = corpo.select("table#partes");
                         Elements p = autores.select("tr");
-                        ArrayList<String> auxList = new ArrayList<String>();
+                        ArrayList<String> auxList1 = new ArrayList<String>();
+                        ArrayList<String> auxList2 = new ArrayList<String>();
                         for (Element eleP : p) {
-                            auxList.add(eleP.text());
+                            auxList1.add(eleP.text());
                         }
-                        processo.setPartes(auxList);
-                        auxList.clear();
+                        processo.setPartes(auxList1);
+
 
 
                         Elements mov = corpo.get(4).select("tr");
 
                         for (Element eleMov : mov) {
-                            auxList.add(eleMov.text());
+                            auxList2.add(eleMov.text());
                         }
-                        processo.setMovimento(auxList);
-                        auxList.clear();
+                        processo.setMovimento(auxList2);
 
                         // passar objeto processo para outra Tela.
                         infoProcesso(processo);
