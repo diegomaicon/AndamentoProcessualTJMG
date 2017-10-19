@@ -29,4 +29,9 @@ dependencies {
     compile 'org.jsoup:jsoup:1.10.2'
     compile 'com.android.support:design:26.+'
     testCompile 'junit:junit:4.12'
+
+    //lIBRARY
+    compile 'com.github.ybq:Android-SpinKit:1.1.0'
+
+
 }

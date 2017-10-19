@@ -1,5 +1,6 @@
 package com.example.diego.andamentoprocessualtjmg.ACTIVITYS;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -64,6 +65,13 @@ public class ListaProcessosActivity extends AppCompatActivity {
 
         }
 
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this,NumeroProcessoActivity.class);
+        startActivity(intent);
 
     }
 

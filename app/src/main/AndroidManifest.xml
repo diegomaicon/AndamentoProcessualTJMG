@@ -43,6 +43,9 @@
         <activity
             android:name=".ACTIVITYS.WebViewActivity"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ACTIVITYS.BuscandoActivity"
+            android:theme="@style/AppTheme" />
 
 
     </application>
