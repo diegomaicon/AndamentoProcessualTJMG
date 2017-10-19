@@ -1,25 +1,13 @@
 package com.example.diego.andamentoprocessualtjmg.ACTIVITYS;
 
-import android.annotation.SuppressLint;
+
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 
-import android.support.annotation.NonNull;
-
-import android.support.design.widget.NavigationView;
-
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.TextWatcher;
-import android.view.Menu;
-
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -110,13 +98,81 @@ public class NumeroProcessoActivity extends AppCompatActivity {
                     }
 
                 } catch (IOException e) {
-                    chamaWebView(html.html());
+                    chamaWebView(link);
                 }
 
             }
         };
         downloadThread.start();
 
+    }
+
+    public void urlReaderCaptcha(String hlink) throws Exception {
+
+        final String link = hlink;
+
+        Thread downloadThread = new Thread() {
+            public void run() {
+                Document html = null;
+                try {
+                    //Baixa HTML com caracter especial
+                    html = Jsoup.parse(new URL(link).openStream(), "ISO-8859-9", link);
+
+
+                    Elements form = html.select("table.tabela_formulario");
+                    Elements corpo = html.select("table.corpo");
+
+                    Processo processo = new Processo();
+                    Elements b = form.select("b");
+                    short aux = 1;
+                    for (Element eleB : b) {
+                        if (aux == 1) processo.setNumero(eleB.text());
+                        if (aux == 2) processo.setVara(eleB.text());
+                        if (aux == 3) processo.setStatus(eleB.text());
+                        aux++;
+                    }
+                    aux = 1;
+
+                    if (!processo.getStatus().equals("BAIXADO")) {
+
+                        Elements eleClasse = corpo.get(1).select("tr");
+                        for (Element eleC : eleClasse) {
+                            if (aux == 1) processo.setClasse(eleC.text());
+                            if (aux == 2) processo.setAssunto(eleC.text());
+                            if (aux == 3) processo.setCs(eleC.text());
+                            aux++;
+                        }
+                        aux = 1;
+
+
+                        Elements autores = corpo.select("table#partes");
+                        Elements p = autores.select("tr");
+                        ArrayList<String> auxList1 = new ArrayList<String>();
+                        ArrayList<String> auxList2 = new ArrayList<String>();
+                        for (Element eleP : p) {
+                            auxList1.add(eleP.text());
+                        }
+                        processo.setPartes(auxList1);
+
+
+                        Elements mov = corpo.get(4).select("tr");
+
+                        for (Element eleMov : mov) {
+                            auxList2.add(eleMov.text());
+                        }
+                        processo.setMovimento(auxList2);
+
+                        // passar objeto processo para outra Tela.
+                        infoProcesso(processo);
+                    }
+
+                } catch (IOException e) {
+                    chamaWebView(link);
+                }
+
+            }
+        };
+        downloadThread.start();
     }
 
 
@@ -128,7 +184,7 @@ public class NumeroProcessoActivity extends AppCompatActivity {
 
     private void chamaWebView(String html) {
         Intent it = new Intent(this, WebViewActivity.class);
-        it.putExtra("html", html);
+        it.putExtra("link", html);
         startActivity(it);
     }
 
