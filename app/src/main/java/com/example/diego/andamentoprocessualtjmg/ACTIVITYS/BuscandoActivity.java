@@ -48,7 +48,7 @@ public class BuscandoActivity extends AppCompatActivity{
                     //Baixa HTML com caracter especial
                     html = Jsoup.parse(new URL(link).openStream(), "ISO-8859-9", link);
 
-                   final Elements aviso = html.getElementsByClass("aviso");
+                    final Elements aviso = html.getElementsByClass("aviso");
                     if (!aviso.equals("")){
 
                         runOnUiThread(new Runnable() {
@@ -256,6 +256,7 @@ public class BuscandoActivity extends AppCompatActivity{
                         e.printStackTrace();
                     }
                 }
+
                 Log.i(TAG, "Fim.");
             }
         }).start();//fim da parte do código responsável por simular o processamento de 2 segundos aproximadamente
