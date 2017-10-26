@@ -31,9 +31,10 @@ public class BuscandoActivity extends AppCompatActivity{
     private boolean alive = true;
 
 
-    private void URLReader(String comrCodigo, String listaProcessos, String numero) throws Exception {
+    public void uRLReader(String comrCodigo, String listaProcessos, String numero) throws Exception {
 
-        final String link = "http://www4.tjmg.jus.br/juridico/sf/proc_resultado.jsp?" +
+
+        final String  link = "http://www4.tjmg.jus.br/juridico/sf/proc_resultado.jsp?" +
                 "comrCodigo=" + comrCodigo + "&numero=" + numero + "&listaProcessos=" + listaProcessos;//15003483;
 
         Thread downloadThread = new Thread() {
@@ -162,7 +163,7 @@ public class BuscandoActivity extends AppCompatActivity{
                     }
 
                 } catch (IOException e) {
-                    chamaWebView(link);
+                    e.printStackTrace();
                 }
 
             }
@@ -172,15 +173,27 @@ public class BuscandoActivity extends AppCompatActivity{
 
 
     private void infoProcesso(Processo p) {
-        Intent it = new Intent(this, ListaProcessosActivity.class);
-        it.putExtra("processo", p);
-        startActivity(it);
+        try {
+            Intent it = new Intent(this, ListaProcessosActivity.class);
+            it.putExtra("processo", p);
+            startActivity(it);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     private void chamaWebView(String html) {
-        Intent it = new Intent(this, WebViewActivity.class);
-        it.putExtra("link", html);
-        startActivity(it);
+        try {
+            Intent it = new Intent(this, WebViewActivity.class);
+            it.putExtra("link", html);
+            startActivity(it);
+            alive = false;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -196,30 +209,30 @@ public class BuscandoActivity extends AppCompatActivity{
         final StringTokenizer st = new StringTokenizer(processo,".-");
 
         //parte do código responsável por simular aproximadamente 2 segundos de processamento
-            new Thread(new Runnable() {
-                public void run() {
+        new Thread(new Runnable() {
+            public void run() {
 
-                    try {
-                        URLReader(st.nextToken(), st.nextToken().concat(st.nextToken()), st.nextToken());
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                try {
+                    uRLReader(st.nextToken(), st.nextToken().concat(st.nextToken()), st.nextToken());
+                } catch (Exception e) {
+
+                }
+
+                for (int i = 0; i <= 100; i++) {
+                    if(!alive) {
+                        Log.d(TAG, "Fim Progress");
+                        break;
                     }
 
-                    for (int i = 0; i <= 100; i++) {
-                        if(!alive) {
-                            Log.d(TAG, "Fim Progress");
-                            break;
-                        }
+                    final int progress = i;
 
-                        final int progress = i;
-
-                        // Atualiza a barra de progresso
-                        runOnUiThread(new Runnable() {
+                    // Atualiza a barra de progresso
+                    runOnUiThread(new Runnable() {
                         public void run() {
                             Log.d(TAG, ">> Progress: " + progress);
                             mProgress.setProgress(progress);
-                            }
-                        });
+                        }
+                    });
 
                     //código responsável pelo delay de 200 milisegundos aproximadamente a cada rodada do for
                     try {
@@ -236,7 +249,8 @@ public class BuscandoActivity extends AppCompatActivity{
 
     @Override
     protected void onDestroy() {
-            super.onDestroy();
-            alive = false;
-        }
+        super.onDestroy();
+        alive = false;
+    }
+
 }
