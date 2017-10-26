@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
 
 import com.example.diego.andamentoprocessualtjmg.MODELO.Processo;
 import com.example.diego.andamentoprocessualtjmg.R;
@@ -29,6 +32,7 @@ public class BuscandoActivity extends AppCompatActivity{
     private static final String TAG = "Ex";
     private ProgressBar mProgress;
     private boolean alive = true;
+    private TextView tv;
 
 
     public void uRLReader(String comrCodigo, String listaProcessos, String numero) throws Exception {
@@ -44,53 +48,64 @@ public class BuscandoActivity extends AppCompatActivity{
                     //Baixa HTML com caracter especial
                     html = Jsoup.parse(new URL(link).openStream(), "ISO-8859-9", link);
 
+                   final Elements aviso = html.getElementsByClass("aviso");
+                    if (!aviso.equals("")){
 
-                    Elements form = html.select("table.tabela_formulario");
-                    Elements corpo = html.select("table.corpo");
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                Toast.makeText(BuscandoActivity.this, aviso.select("strong").text()+"", Toast.LENGTH_LONG).show();
+                                alive = false;
+                                finish();
+                            }
+                        });
 
-                    Processo processo = new Processo();
-                    Elements b = form.select("b");
-                    short aux = 1;
-                    for (Element eleB : b) {
-                        if (aux == 1) processo.setNumero(eleB.text());
-                        if (aux == 2) processo.setVara(eleB.text());
-                        if (aux == 3) processo.setStatus(eleB.text());
-                        aux++;
-                    }
-                    aux = 1;
+                    } else {
+                        Elements form = html.select("table.tabela_formulario");
+                        Elements corpo = html.select("table.corpo");
 
-                    if (!processo.getStatus().equals("BAIXADO")) {
-
-                        Elements eleClasse = corpo.get(1).select("tr");
-                        for (Element eleC : eleClasse) {
-                            if (aux == 1) processo.setClasse(eleC.text());
-                            if (aux == 2) processo.setAssunto(eleC.text());
-                            if (aux == 3) processo.setCs(eleC.text());
+                        Processo processo = new Processo();
+                        Elements b = form.select("b");
+                        short aux = 1;
+                        for (Element eleB : b) {
+                            if (aux == 1) processo.setNumero(eleB.text());
+                            if (aux == 2) processo.setVara(eleB.text());
+                            if (aux == 3) processo.setStatus(eleB.text());
                             aux++;
                         }
                         aux = 1;
 
+                        if (!processo.getStatus().equals("BAIXADO")) {
 
-                        Elements autores = corpo.select("table#partes");
-                        Elements p = autores.select("tr");
-                        ArrayList<String> auxList1 = new ArrayList<String>();
-                        ArrayList<String> auxList2 = new ArrayList<String>();
-                        for (Element eleP : p) {
-                            auxList1.add(eleP.text());
+                            Elements eleClasse = corpo.get(1).select("tr");
+                            for (Element eleC : eleClasse) {
+                                if (aux == 1) processo.setClasse(eleC.text());
+                                if (aux == 2) processo.setAssunto(eleC.text());
+                                if (aux == 3) processo.setCs(eleC.text());
+                                aux++;
+                            }
+                            aux = 1;
+
+
+                            Elements autores = corpo.select("table#partes");
+                            Elements p = autores.select("tr");
+                            ArrayList<String> auxList1 = new ArrayList<String>();
+                            ArrayList<String> auxList2 = new ArrayList<String>();
+                            for (Element eleP : p) {
+                                auxList1.add(eleP.text());
+                            }
+                            processo.setPartes(auxList1);
+
+
+                            Elements mov = corpo.get(4).select("tr");
+
+                            for (Element eleMov : mov) {
+                                auxList2.add(eleMov.text());
+                            }
+                            processo.setMovimento(auxList2);
+
+                            // passar objeto processo para outra Tela.
+                            infoProcesso(processo);
                         }
-                        processo.setPartes(auxList1);
-
-
-
-                        Elements mov = corpo.get(4).select("tr");
-
-                        for (Element eleMov : mov) {
-                            auxList2.add(eleMov.text());
-                        }
-                        processo.setMovimento(auxList2);
-
-                        // passar objeto processo para outra Tela.
-                        infoProcesso(processo);
                     }
 
                 } catch (IOException e) {

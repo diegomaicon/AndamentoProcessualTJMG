@@ -32,9 +32,9 @@ import java.util.StringTokenizer;
 @SuppressWarnings("ResourceType")
 public class NumeroProcessoActivity extends AppCompatActivity {
 
-        private ImageButton btnPesquisa;
-        private EditText edtProcesso;
-        private TextWatcher proMask;
+    private ImageButton btnPesquisa;
+    private EditText edtProcesso;
+    private TextWatcher proMask;
 
 
     private void buscandoProcesso(String st ) {
@@ -44,37 +44,37 @@ public class NumeroProcessoActivity extends AppCompatActivity {
     }
 
     @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_numero_processo);
-            this.setTitle("Pesquisa por Número ");
-            this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_numero_processo);
+        this.setTitle("Pesquisa por Número ");
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-            btnPesquisa = (ImageButton) findViewById(R.id.botao_perquisa);
-            edtProcesso = (EditText) findViewById(R.id.edtProcesso);
-            proMask = Mask.insert("####.##.######-#", edtProcesso);
-            edtProcesso.addTextChangedListener(proMask);
+        btnPesquisa = (ImageButton) findViewById(R.id.botao_perquisa);
+        edtProcesso = (EditText) findViewById(R.id.edtProcesso);
+        proMask = Mask.insert("####.##.######-#", edtProcesso);
+        edtProcesso.addTextChangedListener(proMask);
 
-            btnPesquisa.setOnClickListener(new Button.OnClickListener(){
+        btnPesquisa.setOnClickListener(new Button.OnClickListener(){
 
-                @Override
-                public void onClick(View view) {
-                    String processo = edtProcesso.getText().toString();
+            @Override
+            public void onClick(View view) {
+                String processo = edtProcesso.getText().toString();
 
-                    if(!processo.equals("")){
-                        try {
+                if(!processo.equals("")){
+                    try {
 
-                            Toast.makeText(NumeroProcessoActivity.this, "Buscanco Processo "+ processo, Toast.LENGTH_SHORT).show();
-                            buscandoProcesso(processo);
+                        Toast.makeText(NumeroProcessoActivity.this, "Buscanco Processo "+ processo, Toast.LENGTH_SHORT).show();
+                        buscandoProcesso(processo);
 
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
-            });
+            }
+        });
 
-        }
+    }
 
     @Override
     public void onBackPressed() {
