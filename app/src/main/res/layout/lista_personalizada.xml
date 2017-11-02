@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="85dp"
+    android:orientation="horizontal">
+
+
+    <ImageView
+        android:id="@+id/lista_curso_personalizada_imagem"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_weight="1"
+        android:paddingRight="10dp" />
+
+    <TextView
+        android:id="@+id/tvNome"
+        android:layout_width="349dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/lista_curso_personalizada_imagem"
+        android:layout_toRightOf="@+id/lista_curso_personalizada_imagem"
+        android:layout_weight="1"
+        android:text="Titulo"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/tvEmail"
+        android:layout_width="349dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvNome"
+        android:layout_toEndOf="@+id/lista_curso_personalizada_imagem"
+        android:layout_toRightOf="@+id/lista_curso_personalizada_imagem"
+        android:layout_weight="1"
+        android:text="descriçao"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/tvCPF"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/lista_curso_personalizada_imagem"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/tvFone"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_alignBottom="@+id/lista_curso_personalizada_imagem"
+        android:layout_toRightOf="@+id/lista_curso_personalizada_imagem"
+        android:layout_toEndOf="@+id/lista_curso_personalizada_imagem" />
+
+</RelativeLayout>

@@ -81,8 +81,9 @@ public class IndexActivity extends AppCompatActivity
         } else if (id == R.id.nav_cliente) {
             it = new Intent(this, ClienteActivity.class);
             startActivity(it);
-        } else if (id == R.id.nav_lista_cliente) {
-
+        } else if (id == R.id.nav_lista_clientes) {
+            it = new Intent(this, ListaClienteActivity.class);
+            startActivity(it);
         } else if (id == R.id.nav_processo) {
 
         }

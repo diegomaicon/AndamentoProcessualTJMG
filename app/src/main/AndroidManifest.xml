@@ -45,6 +45,9 @@
             android:name=".ACTIVITYS.WebViewActivity"
             android:theme="@style/AppTheme" />
 
+        <activity
+            android:name=".ACTIVITYS.ListaClienteActivity"
+            android:theme="@style/AppTheme" />
 
 
 

@@ -37,6 +37,7 @@ public class NumeroProcessoActivity extends AppCompatActivity {
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         btnPesquisa = (ImageButton) findViewById(R.id.botao_perquisa);
+
         edtProcesso = (EditText) findViewById(R.id.edtProcesso);
         proMask = Mask.insert("####.##.######-#", edtProcesso);
         edtProcesso.addTextChangedListener(proMask);

@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.diego.andamentoprocessualtjmg.MODELO.Processo;
+import com.example.diego.andamentoprocessualtjmg.DAO.dbProcesso;
 import com.example.diego.andamentoprocessualtjmg.R;
 
 public class ListaProcessosActivity extends AppCompatActivity {
@@ -24,7 +25,15 @@ public class ListaProcessosActivity extends AppCompatActivity {
         this.setTitle("Dados Resumidos");
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        dbProcesso dbp = new dbProcesso(getApplicationContext());
+
         Processo p = (Processo) getIntent().getSerializableExtra("processo");
+
+
+        if(dbp.buscarProcesso(p.getNumero()).size()<1) {
+            dbp.insertProcesso(p);
+        }
+
         TextView etVara = (TextView) findViewById(R.id.tvVara);
         TextView etNumero = (TextView) findViewById(R.id.tvNumero);
         TextView etStatus = (TextView) findViewById(R.id.tvStatus);

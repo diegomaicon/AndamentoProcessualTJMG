@@ -40,7 +40,7 @@ public class BuscandoActivity extends AppCompatActivity{
     public void uRLReader(String comrCodigo, String listaProcessos, String numero) throws Exception {
 
 
-        final String  link = "www4.tjmg.jus.br/juridico/sf/proc_resultado.jsp?" +
+        final String  link = "https://www4.tjmg.jus.br/juridico/sf/proc_resultado.jsp?" +
                 "comrCodigo=" + comrCodigo + "&numero=" + numero + "&listaProcessos=" + listaProcessos;//15003483;
 
         Thread downloadThread = new Thread() {
