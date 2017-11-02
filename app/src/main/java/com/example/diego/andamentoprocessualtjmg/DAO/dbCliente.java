@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.diego.andamentoprocessualtjmg.MODELO.Cliente;
-import com.example.diego.andamentoprocessualtjmg.MODELO.Processo;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -23,6 +22,7 @@ public class dbCliente {
         //acesso para leitura
         dbr = cb.getReadableDatabase();
     }
+
 
     public long insertCliente(Cliente cliente){
         ContentValues values = new ContentValues();

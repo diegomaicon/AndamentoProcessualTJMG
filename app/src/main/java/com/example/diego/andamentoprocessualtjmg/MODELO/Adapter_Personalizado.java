@@ -7,9 +7,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.List;
-
 import com.example.diego.andamentoprocessualtjmg.R;
+
+import java.util.List;
 
 /**
  * Created by lukew on 02/11/2017.
@@ -65,6 +65,7 @@ public class Adapter_Personalizado extends BaseAdapter{
         email.setText("Email:"+cliente.getEmail());
         fone.setText("Fone:"+cliente.getTelefone());
         imagem.setImageResource(R.drawable.user);
+
 
         return view;
     }
