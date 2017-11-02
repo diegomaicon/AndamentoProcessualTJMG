@@ -25,9 +25,9 @@
                 android:title="Cliente" />
 
             <item
-                android:id="@+id/nav_consulta_cliente"
+                android:id="@+id/nav_lista_cliente"
                 android:icon="@android:drawable/ic_menu_myplaces"
-                android:title="Consulta Cliente" />
+                android:title="Lista Clientes" />
 
             <item
                 android:id="@+id/nav_processo"

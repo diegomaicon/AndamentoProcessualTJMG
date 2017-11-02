@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -38,7 +40,7 @@ public class BuscandoActivity extends AppCompatActivity{
     public void uRLReader(String comrCodigo, String listaProcessos, String numero) throws Exception {
 
 
-        final String  link = "http://www4.tjmg.jus.br/juridico/sf/proc_resultado.jsp?" +
+        final String  link = "www4.tjmg.jus.br/juridico/sf/proc_resultado.jsp?" +
                 "comrCodigo=" + comrCodigo + "&numero=" + numero + "&listaProcessos=" + listaProcessos;//15003483;
 
         Thread downloadThread = new Thread() {
@@ -46,14 +48,24 @@ public class BuscandoActivity extends AppCompatActivity{
                 Document html = null;
                 try {
                     //Baixa HTML com caracter especial
-                    html = Jsoup.parse(new URL(link).openStream(), "ISO-8859-9", link);
+
+                  html = Jsoup.parse(new URL(link).openStream(), "UTF-8", link);
+
+
 
                     final Elements aviso = html.getElementsByClass("aviso");
-                    if (!aviso.equals("")){
+                    if (aviso.size() > 0){
 
                         runOnUiThread(new Runnable() {
                             public void run() {
-                                Toast.makeText(BuscandoActivity.this, aviso.select("strong").text()+"", Toast.LENGTH_LONG).show();
+
+                                SpannableString spannableString = new SpannableString(aviso.select("strong").text()+"");
+                                spannableString.setSpan(
+                                        new ForegroundColorSpan(getResources().getColor(R.color.colorPrimary)),
+                                        0,
+                                        spannableString.length(),
+                                        0);
+                                Toast.makeText(BuscandoActivity.this,spannableString, Toast.LENGTH_LONG).show();
                                 alive = false;
                                 finish();
                             }
@@ -109,6 +121,8 @@ public class BuscandoActivity extends AppCompatActivity{
                     }
 
                 } catch (IOException e) {
+
+                    Log.d(TAG,"Erro Catch >>> "+e.getMessage());
                     chamaWebView(link);
                 }
 
@@ -267,6 +281,12 @@ public class BuscandoActivity extends AppCompatActivity{
     protected void onDestroy() {
         super.onDestroy();
         alive = false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.finish();
     }
 
 }

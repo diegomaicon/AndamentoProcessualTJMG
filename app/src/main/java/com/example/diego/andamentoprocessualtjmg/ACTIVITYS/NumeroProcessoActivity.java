@@ -3,8 +3,6 @@ package com.example.diego.andamentoprocessualtjmg.ACTIVITYS;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-
-
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextWatcher;
@@ -15,19 +13,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.diego.andamentoprocessualtjmg.LIB.Mask;
-import com.example.diego.andamentoprocessualtjmg.MODELO.Processo;
 import com.example.diego.andamentoprocessualtjmg.R;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import java.io.IOException;
-import java.io.Serializable;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
 
 @SuppressWarnings("ResourceType")
 public class NumeroProcessoActivity extends AppCompatActivity {

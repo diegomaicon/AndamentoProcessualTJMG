@@ -2,9 +2,6 @@ package com.example.diego.andamentoprocessualtjmg.ACTIVITYS;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -84,9 +81,8 @@ public class IndexActivity extends AppCompatActivity
         } else if (id == R.id.nav_cliente) {
             it = new Intent(this, ClienteActivity.class);
             startActivity(it);
-        } else if (id == R.id.nav_consulta_cliente) {
-            it = new Intent(this, ConsultaClienteActivity.class);
-            startActivity(it);
+        } else if (id == R.id.nav_lista_cliente) {
+
         } else if (id == R.id.nav_processo) {
 
         }

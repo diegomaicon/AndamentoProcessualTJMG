@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -126,6 +127,15 @@
             android:text="TextView"
             android:textSize="11sp" />
     </ScrollView>
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="?attr/actionModeShareDrawable"
+        android:layout_alignBottom="@+id/tvNumero"
+        android:layout_alignRight="@+id/tvLinha1"
+        android:layout_alignEnd="@+id/tvLinha1" />
 
 </RelativeLayout>
 

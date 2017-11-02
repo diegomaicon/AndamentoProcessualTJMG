@@ -1,9 +1,9 @@
 package com.example.diego.andamentoprocessualtjmg.ACTIVITYS;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -61,5 +61,11 @@ public class WebViewActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this,NumeroProcessoActivity.class);
+        startActivity(intent);
+        this.finish();
+    }
 
 }
