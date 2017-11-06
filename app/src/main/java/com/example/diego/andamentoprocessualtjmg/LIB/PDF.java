@@ -1,5 +1,24 @@
 package com.example.diego.andamentoprocessualtjmg.LIB;
 
+import android.os.Environment;
+import android.support.annotation.NonNull;
+
+import com.example.diego.andamentoprocessualtjmg.MODELO.Processo;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+
+import java.io.File;
+import java.io.FileOutputStream;
+
 /**
  * Created by diego on 30/10/17.
 
@@ -7,7 +26,7 @@ package com.example.diego.andamentoprocessualtjmg.LIB;
 */
 public class PDF {
 
-  /*  //Document document;
+    //Document document;
     //public String nome;
     //public String diretorio;
     //fontes usadas para criação do pdf
@@ -21,20 +40,22 @@ public class PDF {
     /**
      * Função responsável por criar um diretório caso ele não exista
      * @param diretorio
-
+*/
     private void criandoDiretorio(String diretorio) {
         File file1 = new File(Environment.getExternalStorageDirectory(), "/" + diretorio + "/");
         if (!file1.exists()) {
-            file1.mkdir();
-            file1 = new File(Environment.getExternalStorageDirectory(), "/" + diretorio + "/");
+            file1.mkdirs();
+
         }
+
     }
 
     //gerando o pdf
-    public PDF(String diretorio, String nomePDF) {
+    public PDF(Processo p,String nomePDF) {
         //Criando um diretório caso ele não exista
+        nomePDF = getString(nomePDF);
+        String diretorio = "AndProTJMG";
         criandoDiretorio(diretorio);
-
         //alocando espaço do arquivo
         File file = new File(Environment.getExternalStorageDirectory(), "/" + diretorio + "/" + nomePDF + ".pdf");
         FileOutputStream fileOut = null;
@@ -46,10 +67,13 @@ public class PDF {
                 file.createNewFile();
                 new FileOutputStream(file);
             }
-            //document = new Document(PageSize.A4);
-            Document document = new Document();
+
+            Document document = new Document(PageSize.A4);
+
+
             PdfWriter.getInstance(document, fileOut);
             document.open();
+
 
             //insere dados formatados do pdf
             tabFormatada(document);
@@ -61,6 +85,14 @@ public class PDF {
         }
     }
 
+    @NonNull
+    private String getString(String nomePDF) {
+       nomePDF = nomePDF.replace(".","");
+        StringBuilder s = new StringBuilder(nomePDF);
+        s.delete(0, 18);
+        nomePDF = s.toString();
+        return nomePDF;
+    }
 
 
     private void tabFormatada(Document document) throws DocumentException {
@@ -72,7 +104,7 @@ public class PDF {
          * Cria-se linhas e celulas para tabela formatada.
          * primeiramente cria-se as celulas e adiciona a tabela. as colunas são controladas
          * pela colspan de acordo com o tamanho de colunas criadas anteriormente
-
+        */
 
         //____________________________________________-
         //Criando célula por celula da tabela
@@ -319,5 +351,7 @@ public class PDF {
         }
     }
 
-        */
+
+
+
 }

@@ -129,13 +129,13 @@
     </ScrollView>
 
     <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="wrap_content"
+        android:id="@+id/btnCompartilhar"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
-        app:srcCompat="?attr/actionModeShareDrawable"
-        android:layout_alignBottom="@+id/tvNumero"
+        android:layout_alignEnd="@+id/tvLinha1"
+        android:layout_alignParentTop="true"
         android:layout_alignRight="@+id/tvLinha1"
-        android:layout_alignEnd="@+id/tvLinha1" />
+        app:srcCompat="?attr/actionModeShareDrawable" />
 
 </RelativeLayout>
 

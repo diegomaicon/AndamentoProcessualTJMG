@@ -40,7 +40,7 @@ public class BuscandoActivity extends AppCompatActivity{
     public void uRLReader(String comrCodigo, String listaProcessos, String numero) throws Exception {
 
 
-        final String  link = "https://www4.tjmg.jus.br/juridico/sf/proc_resultado.jsp?" +
+        final String  link = "http://www4.tjmg.jus.br/juridico/sf/proc_resultado.jsp?" +
                 "comrCodigo=" + comrCodigo + "&numero=" + numero + "&listaProcessos=" + listaProcessos;//15003483;
 
         Thread downloadThread = new Thread() {
@@ -49,7 +49,7 @@ public class BuscandoActivity extends AppCompatActivity{
                 try {
                     //Baixa HTML com caracter especial
 
-                  html = Jsoup.parse(new URL(link).openStream(), "UTF-8", link);
+                  html = Jsoup.parse(new URL(link).openStream(), "iso-8859-9", link);
 
 
 

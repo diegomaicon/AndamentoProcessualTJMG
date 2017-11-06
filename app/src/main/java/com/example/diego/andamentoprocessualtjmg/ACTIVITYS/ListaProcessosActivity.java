@@ -3,20 +3,22 @@ package com.example.diego.andamentoprocessualtjmg.ACTIVITYS;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.diego.andamentoprocessualtjmg.MODELO.Processo;
 import com.example.diego.andamentoprocessualtjmg.DAO.dbProcesso;
+import com.example.diego.andamentoprocessualtjmg.LIB.PDF;
+import com.example.diego.andamentoprocessualtjmg.MODELO.Processo;
 import com.example.diego.andamentoprocessualtjmg.R;
 
 public class ListaProcessosActivity extends AppCompatActivity {
+
+    private ImageButton btnCompartilhar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +29,7 @@ public class ListaProcessosActivity extends AppCompatActivity {
 
         dbProcesso dbp = new dbProcesso(getApplicationContext());
 
-        Processo p = (Processo) getIntent().getSerializableExtra("processo");
+        final Processo p = (Processo) getIntent().getSerializableExtra("processo");
 
 
         if(dbp.buscarProcesso(p.getNumero()).size()<1) {
@@ -44,7 +46,21 @@ public class ListaProcessosActivity extends AppCompatActivity {
         TextView etlinha3 = (TextView) findViewById(R.id.tvlinha3);
         TextView etPartes = (TextView) findViewById(R.id.tvPartes);
         TextView etmovimentos = (TextView) findViewById(R.id.tvMovimento);
+        btnCompartilhar = (ImageButton) findViewById(R.id.btnCompartilhar);
+        btnCompartilhar.setOnClickListener(new Button.OnClickListener(){
 
+            @Override
+            public void onClick(View view) {
+                    try {
+                        //gera o pdf
+                        new PDF(p,p.getNumero());
+                        Toast.makeText(getBaseContext(),"PDF criado!",Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+            }
+        });
 
         etVara.setText(p.getVara());
         etNumero.setText(p.getNumero());
