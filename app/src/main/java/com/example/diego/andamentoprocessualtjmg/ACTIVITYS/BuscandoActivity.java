@@ -12,7 +12,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.example.diego.andamentoprocessualtjmg.MODELO.Processo;
 import com.example.diego.andamentoprocessualtjmg.R;
 
@@ -49,7 +48,8 @@ public class BuscandoActivity extends AppCompatActivity{
                 try {
                     //Baixa HTML com caracter especial
 
-                  html = Jsoup.parse(new URL(link).openStream(), "iso-8859-9", link);
+
+                  html = Jsoup.parse(new URL(link).openStream(), "ISO-8859-9", link);
 
 
 
