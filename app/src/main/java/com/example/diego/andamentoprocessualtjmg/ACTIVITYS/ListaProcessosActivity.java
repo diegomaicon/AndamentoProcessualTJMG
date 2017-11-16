@@ -6,19 +6,17 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.diego.andamentoprocessualtjmg.DAO.dbProcesso;
-import com.example.diego.andamentoprocessualtjmg.LIB.PDF;
 import com.example.diego.andamentoprocessualtjmg.MODELO.Processo;
 import com.example.diego.andamentoprocessualtjmg.R;
 
 public class ListaProcessosActivity extends AppCompatActivity {
 
     private ImageButton btnCompartilhar;
+    private Processo p;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +27,7 @@ public class ListaProcessosActivity extends AppCompatActivity {
 
         dbProcesso dbp = new dbProcesso(getApplicationContext());
 
-        final Processo p = (Processo) getIntent().getSerializableExtra("processo");
+         p = (Processo) getIntent().getSerializableExtra("processo");
 
 
         if(dbp.buscarProcesso(p.getNumero()).size()<1) {
@@ -46,21 +44,9 @@ public class ListaProcessosActivity extends AppCompatActivity {
         TextView etlinha3 = (TextView) findViewById(R.id.tvlinha3);
         TextView etPartes = (TextView) findViewById(R.id.tvPartes);
         TextView etmovimentos = (TextView) findViewById(R.id.tvMovimento);
+        TextView et18 = (TextView) findViewById(R.id.textView18);
         btnCompartilhar = (ImageButton) findViewById(R.id.btnCompartilhar);
-        btnCompartilhar.setOnClickListener(new Button.OnClickListener(){
 
-            @Override
-            public void onClick(View view) {
-                    try {
-                        //gera o pdf
-                        new PDF(p,p.getNumero());
-                        Toast.makeText(getBaseContext(),"PDF criado!",Toast.LENGTH_SHORT).show();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-            }
-        });
 
         etVara.setText(p.getVara());
         etNumero.setText(p.getNumero());
@@ -68,6 +54,13 @@ public class ListaProcessosActivity extends AppCompatActivity {
             etStatus.setText(p.getStatus());
             etStatus.setTextColor(Color.RED);
             etlinha1.setText("_______________________________________________________");
+            etClasse.setText("");
+            etCS.setText("");
+            etAssunto.setText("");
+            etPartes.setText("");
+            etmovimentos.setText("");
+            etlinha3.setText("");
+            et18.setText("");
         } else {
             etStatus.setText(p.getStatus());
             etStatus.setTextColor(Color.GREEN);
@@ -97,6 +90,34 @@ public class ListaProcessosActivity extends AppCompatActivity {
     public void onBackPressed() {
         Intent intent = new Intent(this,NumeroProcessoActivity.class);
         startActivity(intent);
+
+    }
+
+    public  void onClickCompartilhar(View v){
+        // Compartilhar texto
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Compartilhar");
+        if (p.getStatus().equals("ATIVO")) {
+            String str = "";
+            for (String s : p.getPartes()) {
+                str += s + "\n";
+            }
+            String str2 = "";
+            for (String s : p.getMovimento()) {
+                str2 += s + "\n";
+            }
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "PROCESSO " + p.getNumero() + "\n " +
+                    "VARA " + p.getVara() + "\n" +
+                    " " + p.getStatus() +"\n"+
+                     str + "\n" +
+                    "Movimentação :" + str2);
+        }else{
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "PROCESSO " + p.getNumero() + "\n " +
+
+                    "VARA " + p.getVara() + "\n "+ p.getStatus());
+        }
+        startActivity(shareIntent);
 
     }
 

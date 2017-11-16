@@ -3,7 +3,9 @@ package com.example.diego.andamentoprocessualtjmg.ACTIVITYS;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -11,7 +13,6 @@ import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import com.example.diego.andamentoprocessualtjmg.MODELO.Processo;
 import com.example.diego.andamentoprocessualtjmg.R;
@@ -23,6 +24,7 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
@@ -49,7 +51,8 @@ public class BuscandoActivity extends AppCompatActivity{
                 try {
                     //Baixa HTML com caracter especial
 
-                  html = Jsoup.parse(new URL(link).openStream(), "iso-8859-9", link);
+
+                  html = Jsoup.parse(new URL(link).openStream(), "ISO-8859-9", link);
 
 
 
@@ -117,6 +120,9 @@ public class BuscandoActivity extends AppCompatActivity{
 
                             // passar objeto processo para outra Tela.
                             infoProcesso(processo);
+                        }else {
+
+                            infoProcesso(processo);
                         }
                     }
 
@@ -132,16 +138,17 @@ public class BuscandoActivity extends AppCompatActivity{
 
     }
 
-    public void urlReaderCaptcha(String hlink) throws Exception {
+    public void urlReaderCaptcha(final String hlink) throws Exception {
 
         final String link = hlink;
 
         Thread downloadThread = new Thread() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             public void run() {
                 Document html = null;
                 try {
                     //Baixa HTML com caracter especial
-                    html = Jsoup.parse(new URL(link).openStream(), "ISO-8859-9", link);
+                        html = Jsoup.parse(new URL(link).openStream(), StandardCharsets.ISO_8859_1.name() , link);
 
 
                     Elements form = html.select("table.tabela_formulario");

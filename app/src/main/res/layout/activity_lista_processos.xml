@@ -135,6 +135,7 @@
         android:layout_alignEnd="@+id/tvLinha1"
         android:layout_alignParentTop="true"
         android:layout_alignRight="@+id/tvLinha1"
+        android:onClick="onClickCompartilhar"
         app:srcCompat="?attr/actionModeShareDrawable" />
 
 </RelativeLayout>
