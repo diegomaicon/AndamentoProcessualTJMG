@@ -49,6 +49,9 @@
         <activity
             android:name=".ACTIVITYS.ListaClienteActivity"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ACTIVITYS.ParteProcessoActivity"
+            android:theme="@style/AppTheme" />
 
 
 

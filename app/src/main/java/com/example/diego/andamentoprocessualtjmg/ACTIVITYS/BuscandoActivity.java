@@ -39,11 +39,11 @@ public class BuscandoActivity extends AppCompatActivity{
     private TextView tv;
 
 
-    public void uRLReader(String comrCodigo, String listaProcessos, String numero) throws Exception {
+    public void uRLReader(String comrCodigo, String nomeParte) throws Exception {
 
 
-        final String  link = "http://www4.tjmg.jus.br/juridico/sf/proc_resultado.jsp?" +
-                "comrCodigo=" + comrCodigo + "&numero=" + numero + "&listaProcessos=" + listaProcessos;//15003483;
+        final String  link = "http://www4.tjmg.jus.br/juridico/sf/proc_resultado_nome.jsp?tipoPesquisa=2&txtProcesso=&comrCodigo="+comrCodigo+
+                "&nomePessoa="+nomeParte+"&tipoPessoa=X&naturezaProcesso=0&situacaoParte=X&codigoOAB=&tipoOAB=N&ufOAB=MG&numero=1&select=1&tipoConsulta=1&natureza=0&ativoBaixado=X";
 
         Thread downloadThread = new Thread() {
             public void run() {
@@ -80,6 +80,7 @@ public class BuscandoActivity extends AppCompatActivity{
 
                         Processo processo = new Processo();
                         Elements b = form.select("b");
+
                         short aux = 1;
                         for (Element eleB : b) {
                             if (aux == 1) processo.setNumero(eleB.text());
@@ -137,6 +138,109 @@ public class BuscandoActivity extends AppCompatActivity{
         downloadThread.start();
 
     }
+
+
+    public void uRLReader(String comrCodigo, String listaProcessos, String numero) throws Exception {
+
+
+        final String  link = "http://www4.tjmg.jus.br/juridico/sf/proc_resultado.jsp?" +
+                "comrCodigo=" + comrCodigo + "&numero=" + 1 + "&listaProcessos=" + listaProcessos;//15003483;
+
+        Thread downloadThread = new Thread() {
+            public void run() {
+                Document html = null;
+                try {
+                    //Baixa HTML com caracter especial
+
+
+                    html = Jsoup.parse(new URL(link).openStream(), "ISO-8859-9", link);
+
+
+
+                    final Elements aviso = html.getElementsByClass("aviso");
+                    if (aviso.size() > 0){
+
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+
+                                SpannableString spannableString = new SpannableString(aviso.select("strong").text()+"");
+                                spannableString.setSpan(
+                                        new ForegroundColorSpan(getResources().getColor(R.color.colorPrimary)),
+                                        0,
+                                        spannableString.length(),
+                                        0);
+                                Toast.makeText(BuscandoActivity.this,spannableString, Toast.LENGTH_LONG).show();
+                                alive = false;
+                                finish();
+                            }
+                        });
+
+                    } else {
+                        Elements form = html.select("table.tabela_formulario");
+                        Elements corpo = html.select("table.corpo");
+
+                        Processo processo = new Processo();
+                        Elements b = form.select("b");
+
+                        short aux = 1;
+                        for (Element eleB : b) {
+                            if (aux == 1) processo.setNumero(eleB.text());
+                            if (aux == 2) processo.setVara(eleB.text());
+                            if (aux == 3) processo.setStatus(eleB.text());
+                            aux++;
+                        }
+                        aux = 1;
+
+                        if (!processo.getStatus().equals("BAIXADO")) {
+
+                            Elements eleClasse = corpo.get(1).select("tr");
+                            for (Element eleC : eleClasse) {
+                                if (aux == 1) processo.setClasse(eleC.text());
+                                if (aux == 2) processo.setAssunto(eleC.text());
+                                if (aux == 3) processo.setCs(eleC.text());
+                                aux++;
+                            }
+                            aux = 1;
+
+
+                            Elements autores = corpo.select("table#partes");
+                            Elements p = autores.select("tr");
+                            ArrayList<String> auxList1 = new ArrayList<String>();
+                            ArrayList<String> auxList2 = new ArrayList<String>();
+                            for (Element eleP : p) {
+                                auxList1.add(eleP.text());
+                            }
+                            processo.setPartes(auxList1);
+
+
+                            Elements mov = corpo.get(4).select("tr");
+
+                            for (Element eleMov : mov) {
+                                auxList2.add(eleMov.text());
+                            }
+                            processo.setMovimento(auxList2);
+
+                            // passar objeto processo para outra Tela.
+                            infoProcesso(processo);
+                        }else {
+
+                            infoProcesso(processo);
+                        }
+                    }
+
+                } catch (IOException e) {
+
+                    Log.d(TAG,"Erro Catch >>> "+e.getMessage());
+                    chamaWebView(link);
+                }
+
+            }
+        };
+        downloadThread.start();
+
+    }
+
+
 
     public void urlReaderCaptcha(final String hlink) throws Exception {
 

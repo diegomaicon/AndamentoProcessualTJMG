@@ -75,7 +75,8 @@ public class IndexActivity extends AppCompatActivity
             it = new Intent(this, NumeroProcessoActivity.class);
             startActivity(it);
         } else if (id == R.id.nav_partes) {
-
+            it = new Intent(this,ParteProcessoActivity.class);
+            startActivity(it);
         } else if (id == R.id.nav_advogado) {
 
         } else if (id == R.id.nav_cliente) {
