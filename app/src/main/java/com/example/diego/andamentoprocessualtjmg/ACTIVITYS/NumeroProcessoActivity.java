@@ -38,7 +38,7 @@ public class NumeroProcessoActivity extends AppCompatActivity {
 
         btnPesquisa = (ImageButton) findViewById(R.id.botao_perquisa);
 
-        edtProcesso = (EditText) findViewById(R.id.edtProcesso);
+        edtProcesso = (EditText) findViewById(R.id.edtNome);
         proMask = Mask.insert("####.##.######-#", edtProcesso);
         edtProcesso.addTextChangedListener(proMask);
 
@@ -57,6 +57,8 @@ public class NumeroProcessoActivity extends AppCompatActivity {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                }else{
+                      Toast.makeText(NumeroProcessoActivity.this, "Informar  número ", Toast.LENGTH_SHORT).show();
                 }
             }
         });

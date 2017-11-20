@@ -1,12 +1,17 @@
 package com.example.diego.andamentoprocessualtjmg.ACTIVITYS;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.diego.andamentoprocessualtjmg.MODELO.Comarcas;
 import com.example.diego.andamentoprocessualtjmg.R;
@@ -17,10 +22,12 @@ import com.example.diego.andamentoprocessualtjmg.R;
 
 public class ParteProcessoActivity extends AppCompatActivity {
 
+    private ImageButton btnPesquisa;
+    private EditText edtNome;
     Spinner sp;
     int numeroComarca = 0;
 
-    String comacas[] = {"Selecionar a Comarca","Abaeté","Abre-Campo","Açucena", "Águas Formosas",
+    String comacas[] = {"Selecionar a Comarca","","Abaeté","Abre-Campo","Açucena", "Águas Formosas",
             "Aimorés", "Aiuruoca", "Além Paraíba","Alfenas","Almenara","Alpinópolis","Alto Rio Doce",
             "Alvinópolis","Andradas","Andrelândia","Araçuaí","Araguari","Araxá","Arcos","Areado","Arinos",
             "Baependi","Bambuí","Barão de Cocais","Barbacena","Barroso","Belo Horizonte","Belo Vale","Betim",
@@ -60,7 +67,15 @@ public class ParteProcessoActivity extends AppCompatActivity {
             "Uberlândia","Unaí","Varginha","Várzea da Palma","Vazante","Vespasiano","Viçosa","Virginópolis",
             "Visconde do Rio Branco"};
 
-             ArrayAdapter<String> adapter;
+    ArrayAdapter<String> adapter;
+
+    private void buscandoProcesso(int numero,String nome) {
+        Intent it = new Intent(this, BuscandoActivity.class);
+        it.putExtra("numero", numero);
+        it.putExtra("nome", nome.toUpperCase());
+        it.putExtra("st", "");
+        startActivity(it);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +84,10 @@ public class ParteProcessoActivity extends AppCompatActivity {
         this.setTitle("Pesquisa por Partes ");
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        btnPesquisa = (ImageButton) findViewById(R.id.botao_perquisa_parte);
+        edtNome = (EditText) findViewById(R.id.edtNome);
+
+
         sp = (Spinner)findViewById(R.id.spinner);
         adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,comacas);
         sp.setAdapter(adapter);
@@ -76,12 +95,33 @@ public class ParteProcessoActivity extends AppCompatActivity {
         sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        numeroComarca = Comarcas.retornaComarca(position);
+                numeroComarca = Comarcas.retornaComarca(position);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+
+
+
+        btnPesquisa.setOnClickListener(new Button.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                String nome = edtNome.getText().toString();
+                nome = nome.replaceAll(" ","+");
+                if(!nome.equals("")){
+                    try {
+
+                        Toast.makeText(ParteProcessoActivity.this, "Buscanco processo de "+ nome, Toast.LENGTH_SHORT).show();
+                        buscandoProcesso(numeroComarca,nome);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }else Toast.makeText(ParteProcessoActivity.this, "Informa nome" , Toast.LENGTH_SHORT).show();
             }
         });
 

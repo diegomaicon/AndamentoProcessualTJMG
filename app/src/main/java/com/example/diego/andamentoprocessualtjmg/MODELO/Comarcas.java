@@ -15,58 +15,58 @@ public class Comarcas {
         int numeroComarca = 0;
 
         switch (posicao){
-            case 1:
+            case 2:
                 numeroComarca = 2;
                 break;
-            case 2:
+            case 3:
                 numeroComarca = 3;
                 break;
-            case 3:
+            case 4:
                 numeroComarca = 5;
                 break;
-            case 4:
+            case 5:
                 numeroComarca = 9;
                 break;
-            case 5:
+            case 6:
                 numeroComarca = 11; //Aimorés
                 break;
-            case 6:
+            case 7:
                 numeroComarca = 12; //Aiuruoca
                 break;
-            case 7:
+            case 8:
                 numeroComarca = 15; //Além Paraíba
                 break;
-            case 8:
+            case 9:
                 numeroComarca = 16; //Alfenas
                 break;
-            case 9:
+            case 10:
                 numeroComarca = 17; //Almenara
                 break;
-            case 10:
+            case 11:
                 numeroComarca = 19; //Alpinópolis
                 break;
-            case 11:
+            case 12:
                 numeroComarca = 21; //Alto Rio Doce
                 break;
-            case 12:
+            case 13:
                 numeroComarca = 23;//Alvinópolis
                 break;
-            case 13:
+            case 14:
                 numeroComarca = 26;//Andradas
                 break;
-            case 14:
+            case 15:
                 numeroComarca = 28;//Andrelândia
                 break;
-            case 15:
+            case 16:
                 numeroComarca = 34;//Araçuaí
                 break;
-            case 16:
+            case 17:
                 numeroComarca = 35;//Araguari
                 break;
-            case 17:
+            case 18:
                 numeroComarca = 40;//Araxá
                 break;
-            case 18:
+            case 19:
                 numeroComarca = 42;//Arcos
                 break;
             case 20:

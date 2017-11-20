@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.diego.andamentoprocessualtjmg.MODELO.Partes;
 import com.example.diego.andamentoprocessualtjmg.MODELO.Processo;
 import com.example.diego.andamentoprocessualtjmg.R;
 
@@ -39,7 +40,7 @@ public class BuscandoActivity extends AppCompatActivity{
     private TextView tv;
 
 
-    public void uRLReader(String comrCodigo, String nomeParte) throws Exception {
+    public void uRLReader(int comrCodigo, String nomeParte) throws Exception {
 
 
         final String  link = "http://www4.tjmg.jus.br/juridico/sf/proc_resultado_nome.jsp?tipoPesquisa=2&txtProcesso=&comrCodigo="+comrCodigo+
@@ -53,8 +54,6 @@ public class BuscandoActivity extends AppCompatActivity{
 
 
                   html = Jsoup.parse(new URL(link).openStream(), "ISO-8859-9", link);
-
-
 
                     final Elements aviso = html.getElementsByClass("aviso");
                     if (aviso.size() > 0){
@@ -75,28 +74,28 @@ public class BuscandoActivity extends AppCompatActivity{
                         });
 
                     } else {
+                        Partes partes = new Partes();
                         Elements form = html.select("table.tabela_formulario");
                         Elements corpo = html.select("table.corpo");
 
-                        Processo processo = new Processo();
+
                         Elements b = form.select("b");
 
                         short aux = 1;
                         for (Element eleB : b) {
-                            if (aux == 1) processo.setNumero(eleB.text());
-                            if (aux == 2) processo.setVara(eleB.text());
-                            if (aux == 3) processo.setStatus(eleB.text());
+                            if (aux == 1) partes.setNome(eleB.text());
+                            if (aux == 2) partes.setNumero(eleB.text());
                             aux++;
                         }
                         aux = 1;
 
-                        if (!processo.getStatus().equals("BAIXADO")) {
+
 
                             Elements eleClasse = corpo.get(1).select("tr");
                             for (Element eleC : eleClasse) {
-                                if (aux == 1) processo.setClasse(eleC.text());
-                                if (aux == 2) processo.setAssunto(eleC.text());
-                                if (aux == 3) processo.setCs(eleC.text());
+                                if (aux == 1) partes.setSexo(eleC.text());
+                                if (aux == 2) partes.setTipo(eleC.text());
+                                if (aux == 3) partes.setQtd(eleC.text());
                                 aux++;
                             }
                             aux = 1;
@@ -109,7 +108,7 @@ public class BuscandoActivity extends AppCompatActivity{
                             for (Element eleP : p) {
                                 auxList1.add(eleP.text());
                             }
-                            processo.setPartes(auxList1);
+
 
 
                             Elements mov = corpo.get(4).select("tr");
@@ -117,14 +116,11 @@ public class BuscandoActivity extends AppCompatActivity{
                             for (Element eleMov : mov) {
                                 auxList2.add(eleMov.text());
                             }
-                            processo.setMovimento(auxList2);
+                            partes.setProcessos(auxList2);
 
                             // passar objeto processo para outra Tela.
-                            infoProcesso(processo);
-                        }else {
+                            infoNomeParte(partes);
 
-                            infoProcesso(processo);
-                        }
                     }
 
                 } catch (IOException e) {
@@ -320,9 +316,18 @@ public class BuscandoActivity extends AppCompatActivity{
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
+
+    private void infoNomeParte(Partes p) {
+        try {
+            Intent it = new Intent(this, ListaProcessosActivity.class);
+            it.putExtra("partes", p);
+            startActivity(it);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private void chamaWebView(String html) {
         try {
@@ -345,15 +350,30 @@ public class BuscandoActivity extends AppCompatActivity{
         // Barra de Progresso
         mProgress = (ProgressBar) findViewById(R.id.barraProgresso);
 
-        String processo = (String) getIntent().getSerializableExtra("st");
-        final StringTokenizer st = new StringTokenizer(processo,".-");
+        //Por numero
+        final String processo = (String) getIntent().getSerializableExtra("st");
+
+        final StringTokenizer st = new StringTokenizer(processo, ".-");
+
+
+        //por Parte
+        final String nome = (String) getIntent().getSerializableExtra("nome");
+        final int numeroComarca = (int) getIntent().getSerializableExtra("numero");
+
+
+
 
         //parte do código responsável por simular aproximadamente 2 segundos de processamento
         new Thread(new Runnable() {
             public void run() {
 
                 try {
-                    uRLReader(st.nextToken(), st.nextToken().concat(st.nextToken()), st.nextToken());
+                    if(!processo.equals("")) {
+                        uRLReader(st.nextToken(), st.nextToken().concat(st.nextToken()), st.nextToken());
+                    }else {
+                        uRLReader(numeroComarca,nome);
+                    }
+
                 } catch (Exception e) {
 
                 }

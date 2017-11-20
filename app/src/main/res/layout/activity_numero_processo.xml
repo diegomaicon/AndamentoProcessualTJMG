@@ -32,12 +32,12 @@
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="159dp"
         android:layout_below="@+id/textView4"
-        android:layout_alignLeft="@+id/edtProcesso"
-        android:layout_alignStart="@+id/edtProcesso"
+        android:layout_alignLeft="@+id/edtNome"
+        android:layout_alignStart="@+id/edtNome"
         android:layout_marginTop="72dp" />
 
     <EditText
-        android:id="@+id/edtProcesso"
+        android:id="@+id/edtNome"
         android:layout_width="333dp"
         android:layout_height="68dp"
         android:layout_below="@+id/textView4"
@@ -57,9 +57,9 @@
         android:text="Ex: 0261.15.003483-1"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="284dp"
-        android:layout_below="@+id/edtProcesso"
-        android:layout_alignLeft="@+id/edtProcesso"
-        android:layout_alignStart="@+id/edtProcesso" />
+        android:layout_below="@+id/edtNome"
+        android:layout_alignLeft="@+id/edtNome"
+        android:layout_alignStart="@+id/edtNome" />
 
 
     <ImageButton
