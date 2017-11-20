@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.diego.andamentoprocessualtjmg.DAO.dbProcesso;
@@ -15,7 +14,7 @@ import com.example.diego.andamentoprocessualtjmg.R;
 
 public class ListaProcessosActivity extends AppCompatActivity {
 
-    private ImageButton btnCompartilhar;
+
     private Processo p;
 
     @Override
@@ -34,18 +33,18 @@ public class ListaProcessosActivity extends AppCompatActivity {
             dbp.insertProcesso(p);
         }
 
-        TextView etVara = (TextView) findViewById(R.id.tvVara);
-        TextView etNumero = (TextView) findViewById(R.id.tvNumero);
-        TextView etStatus = (TextView) findViewById(R.id.tvStatus);
+        TextView etVara = (TextView) findViewById(R.id.tvSexo);
+        TextView etNumero = (TextView) findViewById(R.id.tvNomeParte);
+        TextView etStatus = (TextView) findViewById(R.id.tvTipo);
         TextView etlinha1 = (TextView) findViewById(R.id.tvLinha1);
-        TextView etClasse = (TextView) findViewById(R.id.tvClasse);
-        TextView etAssunto = (TextView) findViewById(R.id.tvAssunto);
+        TextView etClasse = (TextView) findViewById(R.id.tvQtd);
+        TextView etAssunto = (TextView) findViewById(R.id.tvProcessos);
         TextView etCS = (TextView) findViewById(R.id.tvCS);
         TextView etlinha3 = (TextView) findViewById(R.id.tvlinha3);
         TextView etPartes = (TextView) findViewById(R.id.tvPartes);
         TextView etmovimentos = (TextView) findViewById(R.id.tvMovimento);
         TextView et18 = (TextView) findViewById(R.id.textView18);
-        btnCompartilhar = (ImageButton) findViewById(R.id.btnCompartilhar);
+
 
 
         etVara.setText(p.getVara());

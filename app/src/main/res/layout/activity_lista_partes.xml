@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/degrade_radial"
-    tools:context="com.example.diego.andamentoprocessualtjmg.ACTIVITYS.ListaProcessosActivity">
+    tools:context="com.example.diego.andamentoprocessualtjmg.ACTIVITYS.ListaPartesActivity">
 
     <TextView
         android:id="@+id/tvSexo"
@@ -25,12 +25,11 @@
         android:id="@+id/tvNomeParte"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tvSexo"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/tvSexo"
-        android:layout_marginTop="25dp"
         android:text="TextView"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:layout_below="@+id/btnCompartilhar"
+        android:layout_alignLeft="@+id/tvSexo"
+        android:layout_alignStart="@+id/tvSexo" />
 
     <TextView
         android:id="@+id/tvTipo"
@@ -49,11 +48,11 @@
         android:id="@+id/tvLinha1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:text="__________________________________________________________"
-        android:layout_below="@+id/tvSexo"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tvSexo"
+        android:text="TextView"
+        tools:text="__________________________________________________________" />
 
     <TextView
         android:id="@+id/tvlinha3"
@@ -61,7 +60,7 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         tools:text="__________________________________________________________"
-        android:layout_below="@+id/tvProcessos"
+        android:layout_below="@+id/tvQtd"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -78,65 +77,29 @@
         android:id="@+id/tvProcessos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:layout_below="@+id/tvQtd"
         android:layout_alignLeft="@+id/tvQtd"
-        android:layout_alignStart="@+id/tvQtd" />
-
-    <TextView
-        android:id="@+id/tvCS"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:layout_above="@+id/tvProcessos"
-        android:layout_alignLeft="@+id/tvTipo"
-        android:layout_alignStart="@+id/tvTipo" />
-
-    <TextView
-        android:id="@+id/tvPartes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/tvlinha3"
-        android:layout_alignLeft="@+id/tvProcessos"
-        android:layout_alignRight="@+id/tvlinha3"
-        android:layout_alignStart="@+id/tvProcessos"
-        android:layout_below="@+id/tvlinha3"
-        android:layout_marginTop="11dp"
-        android:text="TextView"
-        android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/textView18"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=" Última(s) Movimentação(ões): "
-        android:layout_marginTop="12dp"
-        android:layout_below="@+id/tvPartes"
-        android:layout_alignLeft="@+id/tvPartes"
-        android:layout_alignStart="@+id/tvPartes" />
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/textView18">
-
-        <TextView
-            android:id="@+id/tvMovimento"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="11sp" />
-    </ScrollView>
+        android:layout_alignStart="@+id/tvQtd"
+        android:text="Processos"
+        android:textSize="18sp"
+        android:layout_below="@+id/tvlinha3" />
 
     <ImageButton
         android:id="@+id/btnCompartilhar"
         android:layout_width="80dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_alignEnd="@+id/tvLinha1"
         android:layout_alignParentTop="true"
         android:layout_alignRight="@+id/tvLinha1"
         android:onClick="onClickCompartilhar"
-        app:srcCompat="?attr/actionModeShareDrawable" />
+        app:srcCompat="@drawable/ic_menu_share" />
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tvProcessos" />
 
 </RelativeLayout>
 

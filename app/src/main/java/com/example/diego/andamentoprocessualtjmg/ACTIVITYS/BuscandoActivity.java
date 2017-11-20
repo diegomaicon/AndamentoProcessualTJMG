@@ -38,6 +38,8 @@ public class BuscandoActivity extends AppCompatActivity{
     private ProgressBar mProgress;
     private boolean alive = true;
     private TextView tv;
+    String nome;
+    int numeroComarca;
 
 
     public void uRLReader(int comrCodigo, String nomeParte) throws Exception {
@@ -61,7 +63,7 @@ public class BuscandoActivity extends AppCompatActivity{
                         runOnUiThread(new Runnable() {
                             public void run() {
 
-                                SpannableString spannableString = new SpannableString(aviso.select("strong").text()+"");
+                                SpannableString spannableString = new SpannableString("Não foi encontrada nenhuma pessoa com o critério de pesquisa utilizado.");
                                 spannableString.setSpan(
                                         new ForegroundColorSpan(getResources().getColor(R.color.colorPrimary)),
                                         0,
@@ -78,6 +80,7 @@ public class BuscandoActivity extends AppCompatActivity{
                         Elements form = html.select("table.tabela_formulario");
                         Elements corpo = html.select("table.corpo");
 
+                        Elements pro = html.select("a");
 
                         Elements b = form.select("b");
 
@@ -95,28 +98,18 @@ public class BuscandoActivity extends AppCompatActivity{
                             for (Element eleC : eleClasse) {
                                 if (aux == 1) partes.setSexo(eleC.text());
                                 if (aux == 2) partes.setTipo(eleC.text());
-                                if (aux == 3) partes.setQtd(eleC.text());
+                                if (aux == 3) {partes.setQtd(eleC.text());break;}
                                 aux++;
                             }
-                            aux = 1;
 
+                        ArrayList<String> auxList1 = new ArrayList<String>();
 
-                            Elements autores = corpo.select("table#partes");
-                            Elements p = autores.select("tr");
-                            ArrayList<String> auxList1 = new ArrayList<String>();
-                            ArrayList<String> auxList2 = new ArrayList<String>();
-                            for (Element eleP : p) {
-                                auxList1.add(eleP.text());
+                        for (int i = 9; i < pro.size()-1 ;i++){
+                                auxList1.add(pro.get(i).text());
                             }
 
 
-
-                            Elements mov = corpo.get(4).select("tr");
-
-                            for (Element eleMov : mov) {
-                                auxList2.add(eleMov.text());
-                            }
-                            partes.setProcessos(auxList2);
+                            partes.setProcessos(auxList1);
 
                             // passar objeto processo para outra Tela.
                             infoNomeParte(partes);
@@ -320,7 +313,7 @@ public class BuscandoActivity extends AppCompatActivity{
 
     private void infoNomeParte(Partes p) {
         try {
-            Intent it = new Intent(this, ListaProcessosActivity.class);
+            Intent it = new Intent(this, ListaPartesActivity.class);
             it.putExtra("partes", p);
             startActivity(it);
         } catch (Exception e) {
@@ -355,11 +348,11 @@ public class BuscandoActivity extends AppCompatActivity{
 
         final StringTokenizer st = new StringTokenizer(processo, ".-");
 
-
-        //por Parte
-        final String nome = (String) getIntent().getSerializableExtra("nome");
-        final int numeroComarca = (int) getIntent().getSerializableExtra("numero");
-
+        if(processo.equals("")) {
+            //por Parte
+            nome = (String) getIntent().getSerializableExtra("nome");
+            numeroComarca = (int) getIntent().getSerializableExtra("numero");
+        }
 
 
 

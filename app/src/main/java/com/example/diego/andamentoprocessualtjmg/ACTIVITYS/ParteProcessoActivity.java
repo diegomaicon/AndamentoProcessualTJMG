@@ -111,11 +111,12 @@ public class ParteProcessoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String nome = edtNome.getText().toString();
-                nome = nome.replaceAll(" ","+");
+
                 if(!nome.equals("")){
                     try {
 
                         Toast.makeText(ParteProcessoActivity.this, "Buscanco processo de "+ nome, Toast.LENGTH_SHORT).show();
+                        nome = nome.replaceAll(" ","+");
                         buscandoProcesso(numeroComarca,nome);
 
                     } catch (Exception e) {
