@@ -1,5 +1,6 @@
 package com.example.diego.andamentoprocessualtjmg.ACTIVITYS;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -11,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.diego.andamentoprocessualtjmg.LIB.PermissionUtils;
 import com.example.diego.andamentoprocessualtjmg.R;
 
 public class IndexActivity extends AppCompatActivity
@@ -31,6 +33,16 @@ public class IndexActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // Solicita as permissões
+        String[] permissoes = new String[]{
+                Manifest.permission.INTERNET,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_GSERVICES,
+
+        };
+        PermissionUtils.validate(this, 0, permissoes);
     }
 
     @Override
@@ -47,6 +59,7 @@ public class IndexActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.index, menu);
+
         return true;
     }
 

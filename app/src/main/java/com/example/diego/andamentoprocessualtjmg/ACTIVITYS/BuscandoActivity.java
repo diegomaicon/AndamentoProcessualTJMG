@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.diego.andamentoprocessualtjmg.MODELO.Pagina;
 import com.example.diego.andamentoprocessualtjmg.MODELO.Partes;
 import com.example.diego.andamentoprocessualtjmg.MODELO.Processo;
 import com.example.diego.andamentoprocessualtjmg.R;
@@ -24,6 +25,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -40,7 +42,7 @@ public class BuscandoActivity extends AppCompatActivity{
     private TextView tv;
     String nome;
     int numeroComarca;
-
+    Document html = null;
 
     public void uRLReader(int comrCodigo, String nomeParte) throws Exception {
 
@@ -50,76 +52,83 @@ public class BuscandoActivity extends AppCompatActivity{
 
         Thread downloadThread = new Thread() {
             public void run() {
-                Document html = null;
-                try {
-                    //Baixa HTML com caracter especial
+                URL url;
+                InputStream inputStream;
+                /*
+                //Baixa HTML com caracter especial
+
+                Log.d("TAG","teste");
+              // html = Jsoup.parse(new URL(link).openStream(), "ISO-8859-9", link);
+
+                url = new URL(link);
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.connect();
+                Log.d("TAG","Error :::: "+conn.getErrorStream().toString());
 
 
-                  html = Jsoup.parse(new URL(link).openStream(), "ISO-8859-9", link);
+               InputStream in = conn.getInputStream();*/
+                html = Jsoup.parse(Pagina.nomeHTML);
+                // in.close();
 
-                    final Elements aviso = html.getElementsByClass("aviso");
-                    if (aviso.size() > 0){
 
-                        runOnUiThread(new Runnable() {
-                            public void run() {
+                final Elements aviso = html.getElementsByClass("aviso");
+                if (aviso.size() > 0){
 
-                                SpannableString spannableString = new SpannableString("Não foi encontrada nenhuma pessoa com o critério de pesquisa utilizado.");
-                                spannableString.setSpan(
-                                        new ForegroundColorSpan(getResources().getColor(R.color.colorPrimary)),
-                                        0,
-                                        spannableString.length(),
-                                        0);
-                                Toast.makeText(BuscandoActivity.this,spannableString, Toast.LENGTH_LONG).show();
-                                alive = false;
-                                finish();
-                            }
-                        });
+                    runOnUiThread(new Runnable() {
+                        public void run() {
 
-                    } else {
-                        Partes partes = new Partes();
-                        Elements form = html.select("table.tabela_formulario");
-                        Elements corpo = html.select("table.corpo");
+                            SpannableString spannableString = new SpannableString("Não foi encontrada nenhuma pessoa com o critério de pesquisa utilizado.");
+                            spannableString.setSpan(
+                                    new ForegroundColorSpan(getResources().getColor(R.color.colorPrimary)),
+                                    0,
+                                    spannableString.length(),
+                                    0);
+                            Toast.makeText(BuscandoActivity.this,spannableString, Toast.LENGTH_LONG).show();
+                            alive = false;
+                            finish();
+                        }
+                    });
 
-                        Elements pro = html.select("a");
+                } else {
+                    Partes partes = new Partes();
+                    Elements form = html.select("table.tabela_formulario");
+                    Elements corpo = html.select("table.corpo");
 
-                        Elements b = form.select("b");
+                    Elements pro = html.select("a");
 
-                        short aux = 1;
-                        for (Element eleB : b) {
-                            if (aux == 1) partes.setNome(eleB.text());
-                            if (aux == 2) partes.setNumero(eleB.text());
+                    Elements b = form.select("b");
+
+                    short aux = 1;
+                    for (Element eleB : b) {
+                        if (aux == 1) partes.setNome(eleB.text());
+                        if (aux == 2) partes.setNumero(eleB.text());
+                        aux++;
+                    }
+                    aux = 1;
+
+
+
+                        Elements eleClasse = corpo.get(1).select("tr");
+                        for (Element eleC : eleClasse) {
+                            if (aux == 1) partes.setSexo(eleC.text());
+                            if (aux == 2) partes.setTipo(eleC.text());
+                            if (aux == 3) {partes.setQtd(eleC.text());break;}
                             aux++;
                         }
-                        aux = 1;
+
+                    ArrayList<String> auxList1 = new ArrayList<String>();
+
+                    for (int i = 9; i < pro.size()-1 ;i++){
+                            auxList1.add(pro.get(i).text());
+                        }
 
 
+                        partes.setProcessos(auxList1);
 
-                            Elements eleClasse = corpo.get(1).select("tr");
-                            for (Element eleC : eleClasse) {
-                                if (aux == 1) partes.setSexo(eleC.text());
-                                if (aux == 2) partes.setTipo(eleC.text());
-                                if (aux == 3) {partes.setQtd(eleC.text());break;}
-                                aux++;
-                            }
+                        // passar objeto processo para outra Tela.
+                        infoNomeParte(partes);
 
-                        ArrayList<String> auxList1 = new ArrayList<String>();
-
-                        for (int i = 9; i < pro.size()-1 ;i++){
-                                auxList1.add(pro.get(i).text());
-                            }
-
-
-                            partes.setProcessos(auxList1);
-
-                            // passar objeto processo para outra Tela.
-                            infoNomeParte(partes);
-
-                    }
-
-                } catch (IOException e) {
-
-                    Log.d(TAG,"Erro Catch >>> "+e.getMessage());
-                    chamaWebView(link);
                 }
 
             }
@@ -137,14 +146,10 @@ public class BuscandoActivity extends AppCompatActivity{
 
         Thread downloadThread = new Thread() {
             public void run() {
-                Document html = null;
+
                 try {
                     //Baixa HTML com caracter especial
-
-
                     html = Jsoup.parse(new URL(link).openStream(), "ISO-8859-9", link);
-
-
 
                     final Elements aviso = html.getElementsByClass("aviso");
                     if (aviso.size() > 0){
@@ -238,7 +243,7 @@ public class BuscandoActivity extends AppCompatActivity{
         Thread downloadThread = new Thread() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             public void run() {
-                Document html = null;
+
                 try {
                     //Baixa HTML com caracter especial
                         html = Jsoup.parse(new URL(link).openStream(), StandardCharsets.ISO_8859_1.name() , link);
@@ -389,7 +394,7 @@ public class BuscandoActivity extends AppCompatActivity{
 
                     //código responsável pelo delay de 200 milisegundos aproximadamente a cada rodada do for
                     try {
-                        Thread.sleep(80);
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -412,5 +417,6 @@ public class BuscandoActivity extends AppCompatActivity{
         super.onBackPressed();
         this.finish();
     }
+
 
 }

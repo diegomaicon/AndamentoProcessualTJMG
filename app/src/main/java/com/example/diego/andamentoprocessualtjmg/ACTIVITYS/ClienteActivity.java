@@ -51,7 +51,7 @@ public class ClienteActivity extends AppCompatActivity {
                 email = (EditText) findViewById(R.id.editEmail);
 
                 String nomeString = nome.getText().toString();
-                String cpfString = editTelefone.getText().toString();
+                String cpfString = editCpf.getText().toString();
                 String telefoneString = editTelefone.getText().toString();
                 String emailString = email.getText().toString();
 

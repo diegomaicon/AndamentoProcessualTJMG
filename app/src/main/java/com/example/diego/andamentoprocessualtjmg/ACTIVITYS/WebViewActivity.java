@@ -63,7 +63,7 @@ public class WebViewActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this,NumeroProcessoActivity.class);
+        Intent intent = new Intent(this,IndexActivity.class);
         startActivity(intent);
         this.finish();
     }
